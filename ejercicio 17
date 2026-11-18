@@ -1,0 +1,46 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)         ; Para convertir el resultado a resultado en texto
+
+.Data
+titulov     Byte "Monitoreo Termico", 0 ; Título de la ventana que se abrira
+titulo1     Byte "Peligro: refrigeracion liquida al maximo", 0 ; Si el aumento> 80
+titulo2     Byte "Temperatura dentro de rango seguro", 0       ; Si el aumento <= 80
+final       Byte "Lectura del socket finalizada", 0            ; Mensaje  que aparecera siempre al final
+t1          DWord 22                    ; Incremento hilo 1
+t2          DWord 25                    ; Incremento hilo 2
+t3          DWord 20                    ; Incremento hilo 3
+t4          DWord 18                    ; Incremento hilo 4
+aumento     DWord 0H                    ; Aumento térmico acumulado total
+
+.Code
+start:
+    Mov Eax, 0            ; Empezamos con Eax en cero
+    Add Eax, t1           ; Suma el hilo 1
+    Add Eax, t2           ; Suma el hilo 2
+    Add Eax, t3           ; Suma el hilo 3
+    Add Eax, t4           ; Suma el hilo 4
+    Mov aumento, Eax      ; Guardamos la suma total en la variable aumento
+
+    Cmp aumento, 80       ; Comparamos si aumento es mayor a 80
+    Jg peligro_activo     ; Si es mayor a 80, salta a este bloque
+
+    ; Si el aumento es menor o igual a 80
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+    Invoke dwtoa, aumento, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+    Jmp salida
+
+peligro_activo:
+    ; Si el aumento es estrictamente mayor a 80
+    Sub aumento, 15       ; Resta 15 al valor dado
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+    Invoke dwtoa, aumento, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+
+salida:
+    ; Mensaje final
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
