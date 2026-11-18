@@ -1,0 +1,45 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)                  ; Para convertir el resultado a texto
+
+.Data
+titulov      Byte "Auditoria de Seguridad", 0    ; Título de la ventana
+titulo1      Byte "Alerta: actividad sospechosa detectada", 0 ; Si totalFallos != 0
+titulo2      Byte "Acceso sin incidentes", 0     ; Si totalFallos == 0
+final        Byte "Fin de auditoria", 0          ; Mensaje que aparecerá al final
+fallos1      DWord 1                             ; Bloque 1 de intentos erróneos
+fallos2      DWord 0                             ; Bloque 2 de intentos erróneos
+fallos3      DWord 2                             ; Bloque 3 de intentos erróneos
+totalFallos  DWord 0H                            ; Variable donde se guardará el resultado de la suma
+alertas      DWord 0H                            ; Contador de alertas de seguridad
+
+.Code
+start:
+    Mov Ecx, 3                  ; Preparamos el ciclo para sumar 3 bloques
+    Mov Esi, Offset fallos1     ; ESI apunta a la primera variable usando OFFSET
+    Mov Eax, 0                  ; Limpiamos EAX para usarlo como acumulador
+
+ciclo_suma:
+    Add Eax, [Esi]              ; Sumamos el valor del bloque actual al acumulador
+    Add Esi, 4                  ; Avanzamos 4 bytes para pasar a la siguiente variable (DWord)
+    Loop ciclo_suma             ; Repite el ciclo 3 veces
+
+    Mov totalFallos, Eax        ; Guardamos la suma total en la variable
+    Cmp totalFallos, 0          ; Comparamos si el total es igual a 0
+    Je sin_incidentes           ; Si es igual a 0, salta a este bloque
+
+    ;En caso de que el total sea diferente de 0
+    Inc alertas                 ; Suma 1 al contador de alertas de seguridad
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+    Jmp salida                  ; Salta directo al mensaje final
+
+sin_incidentes:
+    ;En caso de que el total sea igual a 0
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+
+salida:
+    ;Mensaje final obligatorio
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
