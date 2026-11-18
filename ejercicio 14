@@ -1,0 +1,30 @@
+.Const
+.Data?
+ResultadoEntexto Byte 10 Dup(?)
+.Data
+titulov Byte "halloween", 0
+titulo1 Byte "carga de calibracion detectada", 0
+titulo2 Byte "carga estandar de operacion", 0
+final Byte "Puertas cerrandose", 0
+resultado DWord 0H
+.Code
+start:
+	Mov Eax, 190
+	Add Eax, 1
+	Add Eax, 9
+	Mov resultado, Eax
+    Cmp Eax, 210
+    Je ejecuta_este_bloque
+
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+
+    Invoke dwtoa, resultado, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+
+    Jmp salida
+ejecuta_este_bloque:
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+salida:
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
