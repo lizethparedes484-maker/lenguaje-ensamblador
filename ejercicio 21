@@ -1,0 +1,47 @@
+Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)  ; Para convertir el resultado a resultado en texto
+
+.Data
+titulov     Byte "Videojuegoo", 0        ; Título de la ventana principal
+titulo1     Byte "Subiste de nivel!", 0 ; Si exp >= 120
+titulo2     Byte "Puntos acumulados: nivel insuficiente", 0 ; Si exp < 120
+final       Byte "Guardando progreso del juego", 0 ; Mensaje final
+enemigo1    DWord 30             ; EXP enemigo 1
+enemigo2    DWord 40             ; EXP enemigo 2
+enemigo3    DWord 25             ; EXP enemigo 3
+enemigo4    DWord 35             ; EXP enemigo 4
+exp         DWord 0H             ; Total de experiencia acumulada
+nivel       DWord 1              ; Nivel inicial del personaje
+
+.Code
+start:
+    Mov Eax, 0            ; Empezamos con Eax en cero
+    Add Eax, enemigo1     ; Suma experiencia del enemigo 1
+    Add Eax, enemigo2     ; Suma experiencia del enemigo 2
+    Add Eax, enemigo3     ; Suma experiencia del enemigo 3
+    Add Eax, enemigo4     ; Suma experiencia del enemigo 4
+    Mov exp, Eax          ; Guardamos la experiencia total en exp
+
+    Cmp exp, 120          ; Comparamos si la experiencia es mayor o igual a 120
+    Jge sube_nivel        ; Si es mayor o igual a 120, salta a este bloque
+
+    ; Si la experiencia es menor a 120
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+    Invoke dwtoa, exp, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+    Jmp salida
+
+sube_nivel:
+    ; Si la experiencia es mayor o igual a 120
+    Inc nivel             ; Aumenta 1 nivel al personaje
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+    Invoke dwtoa, nivel, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+
+salida:
+    ; Mensaje final
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
