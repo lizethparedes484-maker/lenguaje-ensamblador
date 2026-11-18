@@ -1,0 +1,38 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?) ; Para convertir el resultado a resultado en texto
+
+.Data
+titulov         Byte "Control de Turbina", 0                ; Título que tendra la ventana
+tituloRegula    Byte "Regulando flujo de combustible", 0    ; Si es que el índice != 100
+tituloEstable   Byte "Velocidad de crucero estabilizada", 0 ; Si el índice == 100
+final           Byte "Ciclo de control completado", 0       ; Mensaje que aparecera al final
+acel            DWord 20                                    ; Valor de aceleración
+indice          DWord 0H                                    ; Indice total (acel * 5)
+
+.Code
+start:
+    Mov Eax, acel         ; Carga la aceleración
+    Mov Eax, 5            ; Las 5 mediciones idénticas
+    Mul Eax               ; Multiplica acel * 5
+    Mov indice, Eax       ; Guarda el índice total
+
+    Cmp indice, 100       ; Compara si el índice es igual a 100
+    Je es_100             ; Si es igual a 100
+
+    ; Si el índice es diferente de 100 (indice != 100)
+    Invoke MessageBox, 0, Addr tituloRegula, Addr titulov, MB_OK
+    Sub indice, 5         ; Ajusta el índice restando 5
+    Jmp salida
+
+es_100:
+    ; Si el índice es igual a 100
+    Invoke MessageBox, 0, Addr tituloEstable, Addr titulov, MB_OK
+    Invoke dwtoa, indice, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+
+salida:
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
