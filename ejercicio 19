@@ -1,0 +1,42 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)                  ; Para resultado a resultado en texto
+
+.Data
+titulov     Byte "Nave", 0                       ; Título de la ventana principal
+titulo1     Byte "Consumo eficiente: modo crucero activo", 0 ; Si el consumo <= 30
+titulo2     Byte "Consumo excesivo: reduciendo potencia de impulso", 0 ; Si el consumo> 30
+final       Byte "Telemetria transmitida", 0     ; Mensaje que aparecera al final
+sector1     DWord 10                             ; Gasto sector 1
+sector2     DWord 12                             ; Gasto sector 2
+sector3     DWord 15                             ; Gasto sector 3
+consumo     DWord 0H                             ; Consumo total acumulado en esta variable
+
+.Code
+start:
+    Mov Eax, 0            ; Empezamos con Eax en cero
+    Add Eax, sector1      ; Suma sector 1
+    Add Eax, sector2      ; Suma sector 2
+    Add Eax, sector3      ; Suma sector 3
+    Mov consumo, Eax      ; Guardamos el total en consumo
+
+    Cmp consumo, 30       ; Comparamos si el consumo es menor o igual a 30
+    Jle consumo_eficiente ; Si es menor o igual a 30, salta a este bloque
+
+    ; Si el consumo supera los 30
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+    Sub consumo, 10       ; Reduce la potencia en 10
+    Invoke dwtoa, consumo, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+    Jmp salida
+
+consumo_eficiente:
+    ; Si el consumo es menor o igual a 30
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+
+salida:
+    ; Mensaje final
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
