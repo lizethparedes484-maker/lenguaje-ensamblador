@@ -1,29 +1,32 @@
 .Const
 .Data?
-ResultadoEntexto Byte 10 Dup(?)
+ResultadoEntexto Byte 10 Dup(?)                  ; Es para convertir el resultado a resultado en texto
 .Data
-titulov Byte "halloween", 0
-titulo1 Byte "carga de calibracion detectada", 0
-titulo2 Byte "carga estandar de operacion", 0
-final Byte "Puertas cerrandose", 0
-resultado DWord 0H
+titulov Byte "halloween", 0                      ; Es el titulo que se le dara a la ventana
+titulo1 Byte "carga de calibracion detectada", 0 ; Si la carga es igual a 210 se le dara este mensaje
+titulo2 Byte "carga estandar de operacion", 0    ; Si no es igual a 210 se dara este mensaje
+final Byte "Puertas cerrandose", 0               ; Mensaje que aparecera al final
+resultado DWord 0H                               ; Variable donde se guardara el resultado de la suma
 .Code
 start:
-	Mov Eax, 190
-	Add Eax, 1
-	Add Eax, 9
-	Mov resultado, Eax
-    Cmp Eax, 210
-    Je ejecuta_este_bloque
+	Mov Eax, 190          ; Numero inicial
+	Add Eax, 1            ; Se le suma 1
+	Add Eax, 9            ; Se le suma 9
+	Mov resultado, Eax    ; Se mueve la suma total a resultado
+    Cmp Eax, 210          ; El resultado se compara con 210
+    Je ejecuta_este_bloque  ; Se compara si las dos cantidades son iguales
 
+    ; En caso de que la condicion no se cumpla ejecutara este bloque
     Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
-
+    ; Convierte el resultado a  resultado en texto para ´poder mostrarlo
     Invoke dwtoa, resultado, Addr ResultadoEntexto
     Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
 
     Jmp salida
+    ; En caso de que la condicion si se cumpla se ejecutara este bloque
 ejecuta_este_bloque:
     Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+    ; Al final mostrara el mensaje de puertas  cerrandose
 salida:
     Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
     Invoke ExitProcess, 0
