@@ -1,0 +1,48 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)      ; Para convertir el resultado total a reultado en texto
+
+.Data
+titulov     Byte "Caminata", 0       ; Título que tendra la ventana
+titulo1     Byte "Meta diaria superada con bonus", 0 ; Si los pasos> 1000
+titulo2     Byte "Objetivo basico alcanzado", 0      ; Si los pasos <= 1000
+final       Byte "Sincronizando reloj", 0            ; Mensaje 	que aparecera siempre al final
+dia1        DWord 250     ; Tramos día 1
+dia2        DWord 300     ; Tramos día 2
+dia3        DWord 200     ; Tramos día 3
+dia4        DWord 150     ; Tramos día 4
+dia5        DWord 120     ; Tramos día 5
+pasos       DWord 0H      ; Total de tramos acumulados en 5 días
+
+.Code
+start:
+    Mov Eax, 0            ; Limpiamos EAX
+    Add Eax, dia1         ; Suma el día 1
+    Add Eax, dia2         ; Suma el día 2
+    Add Eax, dia3         ; Suma el día 3
+    Add Eax, dia4         ; Suma el día 4
+    Add Eax, dia5         ; Suma el día 5
+    Mov pasos, Eax        ; Guardamos la suma total en pasos
+
+    Cmp pasos, 1000       ; Comparamos si los pasos son estrictamente mayores a 1000
+    Jg meta_bonus         ; Si es mayor a 1000, salta a este bloque
+
+    ; Si los pasos son menores o iguales a 1000
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+    Invoke dwtoa, pasos, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+    Jmp salida
+
+meta_bonus:
+    ; Si los pasos son mayores a 1000
+    Add pasos, 100
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+    Invoke dwtoa, pasos, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+
+salida:
+    ; Mensaje final
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
