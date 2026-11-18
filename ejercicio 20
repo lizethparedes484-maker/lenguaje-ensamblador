@@ -1,0 +1,44 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)                  ; Para convertir el resultado a resultado en texto
+
+.Data
+titulov     Byte "Puerto Serie", 0               ; Título de la ventana principal
+titulo1     Byte "Buffer seguro: listo para procesar", 0 ; Si buffer <= 64
+titulo2     Byte "Riesgo de desbordamiento: descartando paquete", 0 ; Si buffer > 64
+final       Byte "Canal libre", 0                ; Mensaje que aparecera al final
+paquete1    DWord 15                             ; Tamaño paquete 1
+paquete2    DWord 20                             ; Tamaño paquete 2
+paquete3    DWord 10                             ; Tamaño paquete 3
+paquete4    DWord 25                             ; Tamaño paquete 4
+buffer      DWord 0H                             ; Espacio total ocupado guardado en la variable buffer
+
+.Code
+start:
+    Mov Eax, 0            ; Empezamos con Eax en cero
+    Add Eax, paquete1     ; Suma paquete 1
+    Add Eax, paquete2     ; Suma paquete 2
+    Add Eax, paquete3     ; Suma paquete 3
+    Add Eax, paquete4     ; Suma paquete 4
+    Mov buffer, Eax       ; Guardamos el tamaño total en la variable buffer
+
+    Cmp buffer, 64        ; Comparamos si búfer es menor o igual a 64
+    Jle buffer_seguro     ; Si es menor o igual a 64, salta a este bloque
+
+    ; Si es mayor a 64
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+    Sub buffer, 16        ; Resta 16 a búfer
+    Invoke dwtoa, buffer, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+    Jmp salida
+
+buffer_seguro:
+    ; Si es menor o igual a 64
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+
+salida:
+    ; Mensaje final
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
