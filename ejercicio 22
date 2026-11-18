@@ -1,0 +1,42 @@
+.Const
+
+.Data?
+ResultadoEntexto Byte 10 Dup(?)            ; Para convertir el resultado a resultado en texto
+
+.Data
+titulov     Byte "Cajero Automatic", 0     ; Título de la ventana pricipal
+titulo1     Byte "Retiro exitoso: saldo suficiente", 0 ; Si al saldo >= 50
+titulo2     Byte "Fondos insuficientes: operacion cancelada", 0 ; Si el saldo < 50
+final       Byte "Retire su tarjeta", 0    ; Mensaje que aparecera al final
+retiro1     DWord 20                       ; Monto del retiro 1
+retiro2     DWord 15                       ; Monto del retiro 2
+retiro3     DWord 20                       ; Monto del retiro 3
+saldo       DWord 100                      ; Saldo disponible en la cuenta bancaria
+
+.Code
+start:
+    Mov Eax, 0            ; Empezamos con Eax en cero
+    Add Eax, retiro1      ; Suma retiro 1
+    Add Eax, retiro2      ; Suma retiro 2
+    Add Eax, retiro3      ; Suma retiro 3
+    
+    ; Comparamos si el saldo actual es mayor o igual al total retirado
+    Cmp saldo, Eax        
+    Jge retiro_exitoso    ; Si el saldo es mayor o igual, salta a este bloque
+
+    ; Si el saldo es menor al total retirado
+    Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
+    Jmp salida
+
+retiro_exitoso:
+    ; Si el saldo es mayor o igual
+    Sub saldo, Eax        ; Resta el total retirado al saldo disponible
+    Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
+    Invoke dwtoa, saldo, Addr ResultadoEntexto
+    Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
+
+salida:
+    ; Mensaje final
+    Invoke MessageBox, 0, Addr final, Addr titulov, MB_OK
+    Invoke ExitProcess, 0
+End start
