@@ -1,0 +1,37 @@
+.Const
+.Data?
+  ResultadoEnTexto Byte 10 Dup(?) ; reserva espacio para guardar el numero convertido a texto
+
+.Data
+  resultado        DWord 0H       ; almacena el total final (inicia en 0)
+  Titulo           Byte "kevin", 0 ; define el titulo de la ventana emergente
+  producto         DWord 0FH      ; guarda el costo del producto en hexadecimal (22H = 34)
+  cuatro           DWord 4H       ; guarda la cantidad de productos comprados (4H = 4)
+  diez             DWord 0AH      ; guarda el valor del descuento en hexadecimal (0AH = 10)
+  no_hay_descuento Byte "No hay descuento", 0 ; texto que se muestra si el total es menor a 60
+  adios            Byte "Vuelva pronto", 0 ; mensaje de despedida que se muestra al final
+
+.Code
+start:
+   Mov Eax, producto            ; copia el costo del producto al registro EAX
+   Mov Ecx, cuatro              ; copia la cantidad 4H al registro ECX
+   IMul Eax, Ecx                ; multiplica EAX por ECX para obtener el total sin descuento
+
+   Cmp Eax, 03CH                ; compara el total acumulado con 3CH (60 en decimal)
+   Jl ejecuta_this_bloque       ; si el total es menor a 3CH, salta al bloque sin descuento
+
+   Mov Ecx, diez                ; copia el descuento 0AH al registro ECX
+   Sub Eax, Ecx                 ; resta el descuento de 10 al total
+   Mov resultado, Eax           ; guarda el total con descuento en la variable resultado
+
+   Invoke dwtoa, resultado, Addr ResultadoEnTexto ; convierte el resultado a cadena de texto
+   Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK ; muestra el total final
+   Jmp salida                   ; salta a la salida para no mostrar el mensaje sin descuento
+
+ejecuta_this_bloque:
+   Invoke MessageBox, 0, Addr no_hay_descuento, Addr Titulo, MB_OK ; muestra "No hay descuento"
+
+salida:
+   Invoke MessageBox, 0, Addr adios, Addr Titulo, MB_OK ; muestra "Vuelva pronto"
+   Invoke ExitProcess, 0        ; finaliza la ejecucion del programa
+End start
