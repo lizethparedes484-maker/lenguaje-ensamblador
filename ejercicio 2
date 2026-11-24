@@ -1,0 +1,23 @@
+.Const
+.Data?
+   ResultadoEnTexto Byte 5 Dup (?) ; Buffer de 5 bytes para guardar el número convertido a texto
+.Data
+
+   Titulo Byte "lizeth", 0  ; es el nombre del titulo
+
+   Resultado DWord 0H        ; Variable para almacenar la suma
+.Code
+
+start:                       ; Inicio del programa
+	Mov Eax, 3      ; Carga 3 en el registro EAX
+	Add Eax, 2      ; Suma 2 al registro EAX (resultado: 5)
+
+	Mov Resultado, Eax        ; Guarda el resultado de la suma
+
+	Invoke dwtoa, Resultado, Addr ResultadoEnTexto   ; Convierte el número a texto (solo lleva 2 parámetros)
+
+	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK   ; Muestra el resultado y el título en una ventana emergente
+
+	Invoke ExitProcess, 0
+
+End start                    ; Termina el código
