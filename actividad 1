@@ -1,0 +1,17 @@
+.Const
+
+.Data?
+
+.Data
+   mensaje Byte "hi lizeth", 0
+   titulo Byte "four time ", 0
+
+
+.Code
+
+start:
+   
+    Invoke MessageBox, 0, Addr mensaje, Addr titulo, MB_OK
+    Invoke ExitProcess, 0
+
+End start
