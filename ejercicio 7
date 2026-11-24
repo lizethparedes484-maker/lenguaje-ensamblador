@@ -1,0 +1,28 @@
+.Const
+
+.Data?
+ResultadoEnTexto Byte 5 Dup (?)
+.Data
+Titulo Byte "party", 0  ; nombre del titulo que aparecera en la ventana
+Numero_A DWord 2H       ; A vale 2
+Numero_B DWord 3H       ; B vale 3
+Numero_C DWord  4H      ; C vale 4
+Numero_D DWord  5H      ; D vale 5
+Resultado DWord 0H      ; donde se guardara el total
+
+.Code
+
+start:
+    Mov Eax, Numero_A   ; guarda el valor 2
+    IMul Eax, Numero_B  ; multipplica por 3
+    Add Eax, Numero_C   ; suma 4
+    Sub Eax, Numero_D   ; resta 5
+    Mov Resultado, Eax  ; guarda el total en la variable resultado
+
+    ; convierte el reultado a resultado en texto y lo muestra
+    Invoke dwtoa, Resultado, Addr ResultadoEnTexto
+    Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK
+    Invoke ExitProcess, 0
+
+
+End start
