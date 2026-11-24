@@ -1,0 +1,38 @@
+.Const
+
+.Data?
+ResultadoEnTexto Byte 10 Dup (?)
+.Data
+Titulo Byte "lizeth area y perimetro", 0 ; es el nombre del titulo que aparecera en la ventana
+resultado DWord 0H                       ; es donde se guardara el resultado del area
+resultadoperimetro DWord 0H              ; es  donde se guarda el resultado del perimetro
+; definimos base = 4 y altura = 16 y dos que es una variable
+base     DWord 4H
+altura   DWord 10H
+dos      DWord 2H
+.Code
+start:
+	;Área = base * altura (4 * 16 = 64)
+   Mov Eax, base          ;ingresa la base 4
+   IMul Eax, altura       ; lo multiplica por la altura
+   Mov resultado, Eax      ; guarda el resultado en resultado
+
+    ; muestra en la ventana el resultado del area
+   	Invoke dwtoa, resultado, Addr ResultadoEnTexto
+	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK
+
+
+   ;Perímetro = 2 * (base + altura) = 2 * (4 + 16) = 40
+ 
+   Mov Eax, base         ; ingresa la base que es 4
+   Add Eax, altura       ; le suma la altura (16)
+   IMul Eax, dos         ; se multiplica por 2
+   Mov resultadoperimetro, Eax ; se guarda el resultado del perimetro
+
+
+    ; muestra en la ventana el resultado del perimetro
+	Invoke dwtoa, resultadoperimetro, Addr ResultadoEnTexto
+	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK
+	Invoke ExitProcess, 0
+	
+End start
