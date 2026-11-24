@@ -1,0 +1,30 @@
+.Const
+.Data?
+ResultadoEnTexto Byte 10 Dup (?) ;connvierte mi resultado de numero a texto
+.Data
+titulo23 Byte "lpc", 0                          ; título para mi ventana
+adios Byte "estado de compate actualizado", 0     ; Mensaje final
+titulo1 Byte "armadura intacta", 0              ; mensaje cuando el daño es menor a 50
+titulo2 Byte "armadura dañada ", 0              ; mensaje si la condicion no se cumplio
+resultado DWord 0H                              ; aqui se va a guardar el total
+.Code
+start:
+    Mov Eax, 87                                 ; es el valor incial
+    Add Eax, 5                                  ; sumo el daño del segundo golpe
+    Add Eax, 9                                  ; sumo el daño del tercer golpe (acumulando el total)
+
+    Cmp Eax, 50                                 ; se compara mi daño con el límite de 50
+    Jl ejecuta_este_bloque                      ; si se cumple la condicion salto a este bloque (armadura intacta)
+    
+    ; si el daño total es mayor o igual a 50, ejecuto esto:
+    Sub Eax, 10                                 ; resto 10 al total
+    Mov resultado, Eax                          ; guardo el resultado en mi variable resultado
+    Invoke dwtoa, resultado, Addr ResultadoEnTexto ; convierto total de numero a texto
+    Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr titulo23, MB_OK
+    Jmp salida                                  ; salto al cierre del programa
+ejecuta_este_bloque:
+    Invoke MessageBox, 0, Addr titulo1, Addr titulo23, MB_OK
+salida:
+    Invoke MessageBox, 0, Addr adios, Addr titulo23, MB_OK  
+    Invoke ExitProcess, 0
+End start
