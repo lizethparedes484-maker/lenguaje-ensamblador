@@ -1,0 +1,25 @@
+.Const
+
+.Data?
+ResultadoEnTexto Byte 5 Dup(?)
+
+.Data
+Titulo Byte "darinel", 0    ; byte es para texto, titulo de la ventana es darinel
+Operador DWord 0AH          ; dword es para numeros, la variable operador vale 10
+Resultado DWord   0H        ; guarda el resultado, inicia en cero
+numero DWord 3H             ;  la variable numero vale 3
+variableax DWord 2H         ; variable para el valor inicial
+.Code
+
+start:
+	Mov Eax, variableax        ; fija el valor inicial en 2
+    Add Eax, numero    ; suma 3 a ese valor
+	IMul Eax, Operador ; multiplica por 10
+
+	Mov Resultado, Eax ;almacena el resultado
+
+	Invoke dwtoa, Resultado, Addr ResultadoEnTexto  ; convierte el resultado en texto
+
+	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK  ;abre la ventana con todo
+  Invoke ExitProcess, 0
+End start
