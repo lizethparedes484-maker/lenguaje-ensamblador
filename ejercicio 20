@@ -1,3 +1,10 @@
+"""
+1.Un puerto serie recibe 4 paquetes de red de distinto tamaño guardado en tam_paquete. Calcula el espacio total ocupado.
+2.Si el tamaño total es menor o igual a 64 (buffer <= 64), imprime "Buffer seguro: listo para procesar"
+3.Si es estrictamente mayor a 64, imprime "Riesgo de desbordamiento: descartando paquete" y resta 16 al búfer e imprime el total.
+4.Final: Imprimir siempre "Canal libre"
+"""
+
 .Const
 
 .Data?
