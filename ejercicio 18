@@ -1,3 +1,9 @@
+"""
+1.Un usuario camina distinta cantidad de tramos al día. Calcula el total de tramos que realizo en 5 días.
+2.Si la suma es estrictamente mayor a 1000 (pasos > 1000), suma 100 pasos extra de bonificación e imprime "Meta diaria superada con bonus"
+3.Si es menor o igual a 1000, imprime "Objetivo basico alcanzado" y el total.
+4.Final: Imprimir siempre "Sincronizando reloj"
+"""
 .Const
 
 .Data?
