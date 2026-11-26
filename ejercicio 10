@@ -1,34 +1,37 @@
+"""
+Si una persona es menor de edad imprimir “No puede pasar” y en caso de que si sea mayor de edad “Si puede pasar”
+"""
+
 .Const
 .Data?
-ResultadoEnTexto Byte 10 Dup (?)  ; Reserva espacio
+ResultadoEnTexto Byte 5 Dup (?)              ; Reserva espacio para el resultado
 
 
 .Data
-  Titulo Byte "kevin", 0                    ; Título de la ventana emergente
-  Edad DWord 11H                            ; Edad a evaluar, depende de quien la ingrese
+  Titulo Byte "kevin", 0                      ; Título de la ventana emergente
+  Edad DWord 11H                              ; Edad a evaluar ( 17 en decimal )
   es_mayor_de_edad Byte "si puedes pasar", 0  ; Mensaje si mayor de edad
   es_menor_de_edad Byte "no puedes pasar", 0  ; Mensaje si no lo es
-  adios Byte "adios", 0                     ; Mensaje final de despedida
+  adios Byte "adios", 0                       ; Mensaje final de despedida
 
 
-; Si es menor a 18, salta al bloque 'ejecuta_this_bloque'.
+
 .Code
 start:
-   Mov Eax, Edad  ; metemos el valor de la edad
-
-   Cmp Eax, 012H  ; comparamos con 18
-   Jl ejecuta_this_bloque
+   Mov Eax, Edad  ; Metemos el valor de la edad
+   Cmp Eax, 012H  ; Comparamos con 18
+   Jl ejecuta_this_bloque   ; Si es menor a 18, salta al bloque 'ejecuta_this_bloque'.
 
    ; Si es mayor o igual a 18, muestra "si puedes pasar"
-
    Invoke MessageBox, 0, Addr es_mayor_de_edad, Addr Titulo, MB_OK
    Jmp salida
 
-; Si fue menor a 18, muestra el mensaje "no puedes pasar"
+   ; Si fue menor a 18, muestra el mensaje "no puedes pasar"
 ejecuta_this_bloque:
 Invoke MessageBox, 0, Addr es_menor_de_edad, Addr Titulo, MB_OK
 
 salida:
+   ; Muestra la despedida
 	Invoke MessageBox, 0, Addr adios, Addr Titulo, MB_OK
-	Invoke ExitProcess, 0
+	Invoke ExitProcess, 0   ; Cierra la ventana emergente 
 End start
