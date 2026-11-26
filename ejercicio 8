@@ -1,10 +1,10 @@
 .Const
 
 .Data?
-ResultadoEnTexto Byte 5 Dup (?) ; Es para convertr nuestro resultado a resultado en texto y asi poder mostrarlo
+ResultadoEnTexto Byte 5 Dup (?)     ; Es para convertr nuestro resultado a resultado en texto y asi poder mostrarlo
 .Data
-Titulo Byte "lizeth", 0         ; Titulo que tendra la ventana
-resultado DWord 0H              ; En esta variable se va a guardar el resultado por eso esta declarada en cero
+Titulo Byte "lizeth", 0             ; Titulo que tendra la ventana
+resultado DWord 0H                  ; En esta variable se va a guardar el resultado por eso esta declarada en cero
    ; Producto A : 4 unidades x 25
    cantA   DWord 4H
    precioA   DWord 19H
