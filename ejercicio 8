@@ -1,3 +1,11 @@
+"""
+Un cliente compra 3 productos distintos con diferentes cantidades. Calcula el total
+
+Producto A: Cantidad = 4, Precio = 25
+Producto B: Cantidad = 2, Precio = 60
+Producto C: Cantidad = 5, Precio = 15
+"""
+
 .Const
 
 .Data?
