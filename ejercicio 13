@@ -1,19 +1,19 @@
 .Const
 .Data?
-ResultadoEnTexto Byte 10 Dup (?)
+ResultadoEnTexto Byte 10 Dup (?)                ; Convierte de numero a texto
 .Data
-titulo23 Byte "lpc", 0                          ;es el titulo que se le dara a la ventana
-adios Byte "registro guardado en memoria", 0    ; es el mensaje que se dara en la salida
-titulo1 Byte "voltaje optimo:balnce de energia correcto", 0  ;es el mensaje que se  dara si la multiplicacion es exacta a cero y se guarda en la variable titulo1
-titulo2 Byte "voltaje fuera de norma ", 0       ; es el mensaje que se  dara si la condicion no se cumple y se guarda en la variable titulo2
-resultado DWord 0H                              ; es la variable donde se guardara el resultado de las operaciones
+titulo23 Byte "lpc", 0                          ; Es el titulo que se le dara a la ventana
+adios Byte "registro guardado en memoria", 0    ; Es el mensaje que se dara en la salida
+titulo1 Byte "voltaje optimo:balnce de energia correcto", 0  ;Es el mensaje que se  dara si la multiplicacion es exacta a 200 y se guarda en la variable titulo1
+titulo2 Byte "voltaje fuera de norma ", 0       ; Es el mensaje que se  dara si la condicion no se cumple y se guarda en la variable titulo2
+resultado DWord 0H                              ; Es la variable donde se guardara el resultado de las operaciones
 .Code
 start:
-    Mov Eax, 5          ; ingresa como primer numero 6
-    IMul Eax, 4         ; multiplica ese numero por 4
-    Mov resultado, Eax  ; el reultado de la multipliacion se guarda en la variable resultado
-    Cmp Eax, 200        ; el resultado se va a comparar con 200
-    Je ejecuta_este_bloque;En caso de que se cumpla, salta a ese bloque (je es para igual)
+    Mov Eax, 5          ; Ingresa como primer numero 5
+    IMul Eax, 4         ; Multiplica ese numero por 4
+    Mov resultado, Eax  ; El resultado de la multipliacion se guarda en la variable resultado
+    Cmp Eax, 200        ; El resultado se va a comparar con 200
+    Je ejecuta_este_bloque    ;En caso de que se cumpla, salta a ese bloque (je es para igual)
 
     ; En caso de que la condicion no se cumpla, ejecutara esto
     Invoke MessageBox, 0, Addr titulo2, Addr titulo23, MB_OK
@@ -28,7 +28,7 @@ ejecuta_este_bloque:
 
     Invoke MessageBox, 0, Addr titulo1, Addr titulo23, MB_OK
 salida:
-
+    ; Muestra la despedida
     Invoke MessageBox, 0, Addr adios, Addr titulo23, MB_OK
     Invoke ExitProcess, 0
 End start
