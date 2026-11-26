@@ -8,18 +8,18 @@ Titulo Byte "darinel", 0    ; Byte es para texto, titulo de la ventana es darine
 Operador DWord 0AH          ; Dword es para numeros, la variable operador vale 10
 Resultado DWord   0H        ; Guarda el resultado, inicia en cero
 numero DWord 3H             ; La variable numero vale 3
-variableax DWord 2H         ; variable para el valor inicial
+variableax DWord 2H         ; Variable para el valor inicial
 .Code
 
 start:
-	Mov Eax, variableax        ; fija el valor inicial en 2
-    Add Eax, numero    ; suma 3 a ese valor
-	IMul Eax, Operador ; multiplica por 10
+	Mov Eax, variableax     ; Fija el valor inicial en 2 ( Variable ya declarada antes )
+    Add Eax, numero         ; suma 3 a ese valor
+	IMul Eax, Operador      ; Multiplica por 10
 
-	Mov Resultado, Eax ;almacena el resultado
+	Mov Resultado, Eax      ;Almacena el resultado
 
 	Invoke dwtoa, Resultado, Addr ResultadoEnTexto  ; convierte el resultado en texto
 
-	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK  ;abre la ventana con todo
-  Invoke ExitProcess, 0
+	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK  ;Abre la ventana con todo
+  Invoke ExitProcess, 0     ; Cierra la ventana
 End start
