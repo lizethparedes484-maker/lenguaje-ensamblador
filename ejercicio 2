@@ -1,3 +1,7 @@
+"""
+Ejercicio 2: Suma de dos números
+"""
+
 .Const
 .Data?
    ResultadoEnTexto Byte 5 Dup (?) ; Sirve para guardar el número convertido a texto
