@@ -1,31 +1,37 @@
+"""
+1.Un cliente compra 4 veces el mismo producto, el costo del producto es una variable.
+2.Si el total por los 4 productos es menor de 60, entonces imprime “No hay descuento”
+3.En caso de que sea mayor a >= 60 entonces descuenta 10 e imprime el total
+4.Por ultimo un mnesaje de “Vuelva pronto”
+"""
+
 .Const
 .Data?
-  ResultadoEnTexto Byte 10 Dup(?) ; reserva espacio para guardar el numero convertido a texto
+  ResultadoEnTexto Byte 10 Dup(?)   ; Reserva espacio para guardar el numero convertido a texto
 
 .Data
-  resultado        DWord 0H       ; almacena el total final (inicia en 0)
-  Titulo           Byte "venta", 0 ; define el titulo de la ventana emergente
-  producto         DWord 0AH      ; guarda el costo del producto en hexadecimal (22H = 34)
-      ; guarda la cantidad de productos comprados (4H = 4)
-      ; guarda el valor del descuento en hexadecimal (0AH = 10)
-  no_hay_descuento Byte "No hay descuento", 0 ; texto que se muestra si el total es menor a 60
-  adios            Byte "Vuelva pronto", 0 ; mensaje de despedida que se muestra al final
+  resultado        DWord 0H                   ; Almacena el total final (inicia en 0)
+  Titulo           Byte "venta", 0            ; Define el titulo de la ventana emergente
+  producto         DWord 0AH                  ; Guarda el costo del producto en hexadecimal (22H = 34)
+  no_hay_descuento Byte "No hay descuento", 0 ; Texto que se muestra si el total es menor a 60
+  adios            Byte "Vuelva pronto", 0    ; Mensaje de despedida que se muestra al final
 
 .Code
 start:
-   Mov Eax, producto            ; copia el costo del producto al registro EAX
-   IMul Eax, 4H              ; copia la cantidad 4H al registro ECX
-   Mov resultado, Eax                ; multiplica EAX por ECX para obtener el total sin descuento
+   Mov Eax, producto                          ; Copia el costo del producto al registro EAX
+   IMul Eax, 4H                               ; Lo multiplica por 4
+   Mov resultado, Eax                         ; Guarda la suma en resultado
 
-   Cmp Eax, 03CH                ; compara el total acumulado con 3CH (60 en decimal)
-   Jl ejecuta_this_bloque       ; si el total es menor a 3CH, salta al bloque sin descuento
-    Mov Eax, resultado
-    Sub Eax, 0AH
-    Mov resultado, Eax       ; multiplica EAX por ECX para obtener el total sin descuento
+   Cmp Eax, 03CH                              ; Compara el total acumulado con 3CH (60 en decimal)
+   Jl ejecuta_this_bloque                     ; Si el total es menor a 3CH, salta al bloque sin descuento
 
-   Invoke dwtoa, resultado, Addr ResultadoEnTexto ; convierte el resultado a cadena de texto
-   Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK ; muestra el total final
-   Jmp salida                   ; salta a la salida para no mostrar el mensaje sin descuento
+    Sub Eax, 0AH                              ; Resta 10 al resultado total
+    Mov resultado, Eax                        ; Vuelve a guardar en resultado
+
+   ; Nos muestra el resultado con el descuento de 10
+   Invoke dwtoa, resultado, Addr ResultadoEnTexto                  ; Convierte el resultado a cadena de texto
+   Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK ; Muestra el total final
+   Jmp salida   ; Salta a la salida para no mostrar el mensaje sin descuento
 
 ejecuta_this_bloque:
    Invoke MessageBox, 0, Addr no_hay_descuento, Addr Titulo, MB_OK ; muestra "No hay descuento"
