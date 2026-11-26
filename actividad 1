@@ -3,15 +3,15 @@
 .Data?
 
 .Data
-   mensaje Byte "hi lizeth", 0
-   titulo Byte "four time ", 0
+   mensaje Byte "hi lizeth", 0    ; guarda en la variable mensaje el texto dentro de las comillas
+   titulo Byte "four time ", 0    ; es el titulo que tendra la ventana
 
 
 .Code
 
 start:
    
-    Invoke MessageBox, 0, Addr mensaje, Addr titulo, MB_OK
-    Invoke ExitProcess, 0
+    Invoke MessageBox, 0, Addr mensaje, Addr titulo, MB_OK  ; manda a llamar a la ventana para mostrar el mensaje 
+    Invoke ExitProcess, 0                                   ; cierra la ventana
 
 End start
