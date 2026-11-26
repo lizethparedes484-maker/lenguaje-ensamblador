@@ -1,3 +1,10 @@
+"""
+1.Un personaje recibe 3 golpes seguidos. Cada golpe causa un daño distinto. Calcula el daño total recibido.
+2.Si el daño total es menor a 50 (daño_total < 50), imprime "Armadura intacta"
+3.Si el daño total es mayor o igual a 50, resta 10 al total e imprime el total.
+4.Final: Imprimir siempre "Estado de combate actualizado"
+"""
+
 .Const
 .Data?
 ResultadoEnTexto Byte 10 Dup (?)                ; Convierte mi resultado de numero a texto
