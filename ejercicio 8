@@ -1,10 +1,10 @@
 .Const
 
 .Data?
-ResultadoEnTexto Byte 5 Dup (?) ; es para convertr nuestro resultado a resultado en texto y asi poder mostrarlo
+ResultadoEnTexto Byte 5 Dup (?) ; Es para convertr nuestro resultado a resultado en texto y asi poder mostrarlo
 .Data
-Titulo Byte "lizeth", 0         ; titulo que tendra la ventana
-resultado DWord 0H              ; en esta variable se va a guardar el resultado por eso esta declarada en cero
+Titulo Byte "lizeth", 0         ; Titulo que tendra la ventana
+resultado DWord 0H              ; En esta variable se va a guardar el resultado por eso esta declarada en cero
    ; Producto A : 4 unidades x 25
    cantA   DWord 4H
    precioA   DWord 19H
@@ -20,27 +20,27 @@ resultado DWord 0H              ; en esta variable se va a guardar el resultado 
 .Code
 
 start:
-	Mov Ebx, 0                ; ebx inicia en cero
+	Mov Ebx, 0                ; Ebx inicia en cero
 
 
     ; Producto A: 4*25 = 100
     Mov Eax, cantA
-    IMul Eax, precioA          ; eax = 4*25 = 100
-    Add Ebx, Eax               ; ebx = 0 +100 = 100
+    IMul Eax, precioA          ; Eax = 4*25 = 100
+    Add Ebx, Eax               ; Ebx = 0 +100 = 100
 
    ; Producto B: 2*60 = 120
     Mov Eax, cantB
     IMul Eax, precioB
-    Add Ebx, Eax
+    Add Ebx, Eax               ; Se suma a Ebx
 
-     ; Producto B: 5*15= 75
+    ; Producto B: 5*15= 75
     Mov Eax, cantC
     IMul Eax, precioC
-    Add Ebx, Eax
-    Mov resultado, Ebx
+    Add Ebx, Eax               ; Se suma a Ebx
+    Mov resultado, Ebx         ; Se guarda la suma total a resultado
 
-    ; nos muestra los resultados
-	Invoke dwtoa, resultado, Addr ResultadoEnTexto
+    ; Nos muestra los resultados
+	Invoke dwtoa, resultado, Addr ResultadoEnTexto       
 	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK
-	Invoke ExitProcess, 0
+	Invoke ExitProcess, 0      ; Cierra la vnetana emeregente
 End start
