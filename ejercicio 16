@@ -1,3 +1,10 @@
+"""
+1.Una turbina tiene 5 mediciones idénticas consecutivas de aceleración almacenadas en una variable llamada acel. Calcula el índice total (acel * 5).
+2.Si el índice es diferente de 100 (indice != 100), imprime "Regulando flujo de combustible" y ajusta el índice restando 5.
+3.Si el índice es exactamente 100, imprime "Velocidad de crucero estabilizada"y el indice.
+4.Final: Imprimir siempre "Ciclo de control completado"
+"""
+
 .Const
 
 .Data?
