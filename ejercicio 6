@@ -1,22 +1,22 @@
 .Const
 
 .Data?
-ResultadoEnTexto Byte 5 Dup (?)
+ResultadoEnTexto Byte 5 Dup (?)    ; Convierte numero a texto
 .Data
-Titulo Byte "party", 0     ; el titulo de la ventana en party
-Numeero DWord 0AH          ; el primer numero es 10
-numero DWord 3H            ; el segundo numero es 3
-Resultado DWord 0H         ; se guarda el resultado
+Titulo Byte "party", 0     ; El titulo de la ventana en party
+Numeero DWord 0AH          ; El primer numero es 10
+numero DWord 3H            ; El segundo numero es 3
+Resultado DWord 0H         ; En esta variable se guardara el resultado
 
 .Code
 
 start:
-    Mov Eax, Numeero       ; trae el valor 10
-    Sub Eax, numero        ; resta 3
-    Mov Resultado, Eax     ; almacena ese resultado
-    Invoke dwtoa, Resultado, Addr ResultadoEnTexto   ; convierte el resultado a texto
-    Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK     ; abre la ventana con todo(titulo, resultado)
-    Invoke ExitProcess, 0  ;cierra todo
+    Mov Eax, Numeero       ; Trae el valor 10
+    Sub Eax, numero        ; Resta 3
+    Mov Resultado, Eax     ; Almacena ese resultado en la variable resultado
+    Invoke dwtoa, Resultado, Addr ResultadoEnTexto                      ; Convierte el resultado a texto
+    Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK     ; Abre la ventana con todo(titulo, resultado)
+    Invoke ExitProcess, 0  ; Cierra todo
 
 
 End start
