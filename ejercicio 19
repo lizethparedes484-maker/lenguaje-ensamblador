@@ -1,3 +1,10 @@
+"""
+1.Una nave consume 3 unidades distintas de combustible por sector visitado (variable gasto_sector). Calcula el consumo total
+2.Si el combustible gastado es menor o igual a 30 (consumo <= 30), imprime "Consumo eficiente: modo crucero activo"
+3.Si supera los 30, imprime "Consumo excesivo: reduciendo potencia de impulso" y reduce la potencia en 10 e imprime el total.
+4.Final: Imprimir siempre "Telemetria transmitida"
+"""
+
 .Const
 
 .Data?
