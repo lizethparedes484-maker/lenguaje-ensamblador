@@ -1,27 +1,27 @@
 .Const
 
 .Data?
-ResultadoEnTexto Byte 5 Dup (?)
+ResultadoEnTexto Byte 5 Dup (?)  ; Es para convertir el resultado de numero a texto
 
 .Data
-Titulo Byte  "halloween ", 0
-Operador DWord 0AH
-Resultado DWord   0H
+Titulo Byte  "halloween ", 0     ; Titulo que tendra la ventana emergente
+Operador DWord 0AH               ; Declara la variable operador (10 en decimal)
+Resultado DWord   0H             ; Declara la variable donde se guarda el resultado
 
 
 .Code
 
-start:
-    Mov Eax, 2
+start:                           ; inicia el programa
+    Mov Eax, 2                   ; Mueve el numero a Eax
 
-    IMul Eax, Operador
+    IMul Eax, Operador           ; Lo multiplica por 10
 
-    Mov Resultado, Eax  ; para guardar el resultado
+    Mov Resultado, Eax           ; Para guardar el resultado
 
-    Invoke dwtoa, Resultado, Addr ResultadoEnTexto
+    Invoke dwtoa, Resultado, Addr ResultadoEnTexto   ; Convierte el resultado a texto para poder mostrarlo
 
-    Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK
+    Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK    ; Manda a llamar al resultado en la ventana emergente con el titulo
 
-	Invoke ExitProcess, 0
+	Invoke ExitProcess, 0       ; Cierra la ventana emergente
 End start
 
