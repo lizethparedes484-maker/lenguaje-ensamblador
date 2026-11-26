@@ -1,6 +1,11 @@
-; ejercicio 21
+"""
+1.Un jugador derrota a 4 enemigos del mismo rango. Cada enemigo otorga una cantidad de experiencia distinta. Calcula la experiencia total ganada.
+2.Si la experiencia acumulada es mayor o igual a 120 (exp >= 120), aumenta 1 nivel al personaje e imprime "Subiste de nivel!"
+3.Si es menor a 120, imprime "Puntos acumulados: nivel insuficiente" y el total.
+4.Final: Imprimir siempre "Guardando progreso del juego"
+"""
 
-Const
+.Const
 
 .Data?
 ResultadoEntexto Byte 10 Dup(?)  ; Para convertir el resultado a resultado en texto
