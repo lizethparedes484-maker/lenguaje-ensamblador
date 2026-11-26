@@ -1,3 +1,10 @@
+"""
+1.Un estudiante cursa 3 materias modulares que tienen diferente valor en créditos (variable creditos_materia). Calcula el avance sumado.
+2.Si los créditos acumulados son mayor o igual a 45 (creditos >= 45), imprime "Habilitado para tramite de servicio social"
+3.Si es menor a 45, imprime "Creditos pendientes para liberacion"
+4.Final: Imprimir siempre "Consulta de expediente concluida"
+"""
+
 .Const
 
 .Data?
