@@ -1,37 +1,44 @@
+"""
+Dadas las dimensiones de un rectángulo, calcula de forma su perímetro y su área.
+
+Perímetro = 2 x (base + altura)
+
+Área = base x altura
+"""
 .Const
 
 .Data?
-ResultadoEnTexto Byte 10 Dup (?)
+ResultadoEnTexto Byte 10 Dup (?)         ; Coonvierte el resultado de numero a texto
 .Data
-Titulo Byte "lizeth area", 0 ; es el nombre del titulo que aparecera en la ventana
-Titulo2 Byte "lizeth perimetro", 0 ; es el nombre del titulo que aparecera en la ventana
-resultado DWord 0H                       ; es donde se guardara el resultado del area
-resultadoperimetro DWord 0H              ; es  donde se guarda el resultado del perimetro
-; definimos base = 4 y altura = 16 y dos que es una variable
+Titulo Byte "lizeth area", 0             ; Es el nombre del titulo que aparecera en la ventana
+Titulo2 Byte "lizeth perimetro", 0       ; Es el nombre del titulo que aparecera en la ventana
+resultado DWord 0H                       ; Es donde se guardara el resultado del area
+resultadoperimetro DWord 0H              ; Es  donde se guarda el resultado del perimetro
+; Definimos base = 4, altura = 16 y dos que es una variable
 base     DWord 4H
 altura   DWord 10H
 dos      DWord 2H
 .Code
 start:
 	;Área = base * altura (4 * 16 = 64)
-   Mov Eax, base          ;ingresa la base 4
-   IMul Eax, altura       ; lo multiplica por la altura
-   Mov resultado, Eax      ; guarda el resultado en resultado
+   Mov Eax, base           ; Ingresa la base 4
+   IMul Eax, altura        ; Lo multiplica por la altura
+   Mov resultado, Eax      ; Guarda el resultado en resultado
 
-    ; muestra en la ventana el resultado del area
+    ; Mestra en la ventana el resultado del area
    	Invoke dwtoa, resultado, Addr ResultadoEnTexto
 	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo, MB_OK
 
 
    ;Perímetro = 2 * (base + altura) = 2 * (4 + 16) = 40
  
-   Mov Eax, base         ; ingresa la base que es 4
-   Add Eax, altura       ; le suma la altura (16)
-   IMul Eax, dos         ; se multiplica por 2
-   Mov resultadoperimetro, Eax ; se guarda el resultado del perimetro
+   Mov Eax, base           ; Ingresa la base que es 4
+   Add Eax, altura         ; Le suma la altura (16)
+   IMul Eax, dos           ; Se multiplica por 2
+   Mov resultadoperimetro, Eax ; Se guarda el resultado del perimetro
 
 
-    ; muestra en la ventana el resultado del perimetro
+    ; Muestra en la ventana el resultado del perimetro
 	Invoke dwtoa, resultadoperimetro, Addr ResultadoEnTexto
 	Invoke MessageBox, 0, Addr ResultadoEnTexto, Addr Titulo2, MB_OK
 	Invoke ExitProcess, 0
