@@ -4,42 +4,40 @@
 3.Si es menor a 45, imprime "Creditos pendientes para liberacion"
 4.Final: Imprimir siempre "Consulta de expediente concluida"
 """
-
 .Const
 
 .Data?
 ResultadoEntexto Byte 10 Dup(?)            ; Para convertir el resultado a resultado en texto
 
 .Data
-titulov     Byte "Cajero Automatic", 0     ; Título de la ventana pricipal
-titulo1     Byte "Retiro exitoso: saldo suficiente", 0 ; Si al saldo >= 50
-titulo2     Byte "Fondos insuficientes: operacion cancelada", 0 ; Si el saldo < 50
-final       Byte "Retire su tarjeta", 0    ; Mensaje que aparecera al final
-retiro1     DWord 20                       ; Monto del retiro 1
-retiro2     DWord 15                       ; Monto del retiro 2
-retiro3     DWord 20                       ; Monto del retiro 3
-saldo       DWord 100                      ; Saldo disponible en la cuenta bancaria
+titulov          Byte "Control Escolar", 0     ; Título de la ventana principal
+titulo1          Byte "Habilitado para tramite de servicio social", 0 ; Si creditos >= 45
+titulo2          Byte "Creditos pendientes para liberacion", 0 ; Si creditos < 45
+final            Byte "Consulta de expediente concluida", 0    ; Mensaje que aparecera al final
+creditos_materia1 DWord 15                     ; Creditos de la materia 1
+creditos_materia2 DWord 20                     ; Creditos de la materia 2
+creditos_materia3 DWord 15                     ; Creditos de la materia 3
+minimo           DWord 45                      ; Minimo de creditos requeridos
 
 .Code
 start:
     Mov Eax, 0            ; Empezamos con Eax en cero
-    Add Eax, retiro1      ; Suma retiro 1
-    Add Eax, retiro2      ; Suma retiro 2
-    Add Eax, retiro3      ; Suma retiro 3
+    Add Eax, creditos_materia1 ; Suma creditos materia 1
+    Add Eax, creditos_materia2 ; Suma creditos materia 2
+    Add Eax, creditos_materia3 ; Suma creditos materia 3
     
-    ; Comparamos si el saldo actual es mayor o igual al total retirado
-    Cmp saldo, Eax        
-    Jge retiro_exitoso    ; Si el saldo es mayor o igual, salta a este bloque
+    ; Comparamos si los creditos acumulados son mayor o igual a 45
+    Cmp Eax, minimo        
+    Jge habilitado        ; Si los creditos son mayor o igual, salta a este bloque
 
-    ; Si el saldo es menor al total retirado
+    ; Si los creditos son menores al minimo requerido
     Invoke MessageBox, 0, Addr titulo2, Addr titulov, MB_OK
     Jmp salida
 
-retiro_exitoso:
-    ; Si el saldo es mayor o igual
-    Sub saldo, Eax        ; Resta el total retirado al saldo disponible
+habilitado:
+    ; Si los creditos son mayor o igual
+    Invoke dwtoa, Eax, Addr ResultadoEntexto
     Invoke MessageBox, 0, Addr titulo1, Addr titulov, MB_OK
-    Invoke dwtoa, saldo, Addr ResultadoEntexto
     Invoke MessageBox, 0, Addr ResultadoEntexto, Addr titulov, MB_OK
 
 salida:
