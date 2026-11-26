@@ -1,3 +1,10 @@
+"""
+1.Un sistema registra 3 bloques de intentos erróneos, donde cada bloque tiene un número de fallos guardado en una variable fallos. Calcula el total.
+2.Si el total acumulado es diferente de 0 (fallos != 0), suma 1 al contador de alertas de seguridad e imprime "Alerta: actividad sospechosa detectada"
+3.Si es igual a 0, imprime "Acceso sin incidentes"
+4.Final: Imprimir siempre "Fin de auditoria"
+"""
+
 .Const
 
 .Data?
