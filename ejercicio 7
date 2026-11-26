@@ -1,3 +1,9 @@
+"""
+Ejercicio 7: Traduce la siguiente expresión matemática a ensamblador
+
+Resultado = ((A . B) + C) - D
+"""
+
 .Const
 
 .Data?
