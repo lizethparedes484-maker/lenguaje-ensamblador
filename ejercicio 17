@@ -1,3 +1,10 @@
+"""
+1.Un procesador ejecuta 4 hilos de alta carga. Cada hilo incrementa la temperatura en un valor guardado en una variable temp_subida. Calcula el aumento térmico acumulado.
+2.Si el aumento es estrictamente mayor a 80 (aumento > 80), activa los ventiladores restando 15 al valor proyectado e imprime "Peligro: refrigeracion liquida al maximo"
+3.Si es menor o igual a 80, imprime "Temperatura dentro de rango seguro" y la temperatura.
+4.Final: Imprimir siempre "Lectura del socket finalizada"
+"""
+
 .Const
 
 .Data?
@@ -8,11 +15,11 @@ titulov     Byte "Monitoreo Termico", 0 ; Título de la ventana que se abrira
 titulo1     Byte "Peligro: refrigeracion liquida al maximo", 0 ; Si el aumento> 80
 titulo2     Byte "Temperatura dentro de rango seguro", 0       ; Si el aumento <= 80
 final       Byte "Lectura del socket finalizada", 0            ; Mensaje  que aparecera siempre al final
-t1          DWord 22                    ; Incremento hilo 1
-t2          DWord 25                    ; Incremento hilo 2
-t3          DWord 20                    ; Incremento hilo 3
-t4          DWord 18                    ; Incremento hilo 4
-aumento     DWord 0H                    ; Aumento térmico acumulado total
+t1          DWord 22      ; Incremento hilo 1
+t2          DWord 25      ; Incremento hilo 2
+t3          DWord 20      ; Incremento hilo 3
+t4          DWord 18      ; Incremento hilo 4
+aumento     DWord 0H      ; Aumento térmico acumulado total
 
 .Code
 start:
