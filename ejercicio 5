@@ -1,3 +1,7 @@
+"""
+Ejercicio 5: Sumar 3 al valor inicial de Eax y multiplicarlo por 10
+"""
+
 .Const
 
 .Data?
