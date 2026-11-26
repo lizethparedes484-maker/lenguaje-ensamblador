@@ -1,4 +1,11 @@
 .Const
+"""
+1. Un sensor lee 4 muestras consecutivas de voltaje idénticas, cuyo valor base está en una variable muestra. Se calcula la suma total (muestra * 4).
+2.Si la suma es exactamente igual a 200 (suma == 200), imprime "Voltaje optimo: balance de energia correcto"
+3.Si no es igual a 200, imprime "Voltaje fuera de norma" y el voltaje total.
+4.Final: Imprimir siempre "Registro guardado en memoria"
+"""
+
 .Data?
 ResultadoEnTexto Byte 10 Dup (?)                ; Convierte de numero a texto
 .Data
