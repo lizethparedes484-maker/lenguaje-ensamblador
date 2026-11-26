@@ -1,3 +1,10 @@
+"""
+1.Suben 3 personas que tienen distintos pesos. Calcula el peso conjunto.
+2.Si el peso acumulado es exactamente igual a 210 (peso_total == 210), imprime "Carga de calibración exacta detectada"
+3.Si no es igual a 210, imprime "Carga estándar de operación" y el peso total.
+4.Final: Imprimir siempre "Puertas cerrandose"
+"""
+
 .Const
 .Data?
 ResultadoEntexto Byte 10 Dup(?)                  ; Es para convertir el resultado a resultado en texto
